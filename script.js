@@ -104,7 +104,7 @@ const products = [
     id: 12,
     name: "Escritorio con repisas",
     price: "$40.000",
-    images: ["images/Escritorio_repisas.JPG","images/Escritorio_repisas(2).JPG","images/Escritorio_repisas(3).JPG","images/Escritorio_repisas(4).JPG","images/Escritorio_repisas(5).JPG","images/Escritorio_repisas(6).JPG"],
+    images: ["images/Escritorio_repisas.JPG","images/Escritorio_repisas_2.JPG","images/Escritorio_repisas_3.JPG","images/Escritorio_repisas_4.JPG","images/Escritorio_repisas_5.JPG","images/Escritorio_repisas_6.JPG"],
     "description": "Escritorio con repisas y dos cajones, ideal para guardar diferentes objetos, libros o artículos.\n\nMedidas:\n- Alto: 1,75 m\n- Ancho: 1,00 m",
     whatsapp: "+56992925684",
     sold: false
@@ -122,7 +122,7 @@ const products = [
     id: 14,
     name: "Mesa de apoyo con repisa de vidrio",
     price: "$65.000",
-    images: ["images/Mesa_apoyo.JPG","images/Mesa_apoyo(2).JPG"],
+    images: ["images/Mesa_apoyo.JPG","images/Mesa_apoyo_2.JPG"],
     "description": "\nDetalles:\n- Algunos rayones leves en la superficie por desgaste.\n- El resto en perfecto estado.\n\nMedidas:\n- Alto: 85 cm\n- Largo: 108 cm\n- Profundidad: 34 cm",
     whatsapp: "+56992925684",
     sold: false
