@@ -4,7 +4,7 @@ const products = [
     id: 1,
     name: "Cortadora de pasto",
     price: "$25.000",
-    images: ["images/IMG_9411.JPG", "images/IMG_9412.jpg"],
+    images: ["images/IMG_9411.jpg", "images/IMG_9412.jpg"],
     description: "Cortadora de pasto semi nueva, en buen estado y con filo funcional.",
     whatsapp: "+56992925684",
     sold: true
@@ -31,7 +31,7 @@ const products = [
     id: 4,
     name: "Cilindro 15kg",
     price: "$30.000",
-    images: ["images/IMG_9356.JPG"],
+    images: ["images/IMG_9356.jpg"],
     description: "",
     whatsapp: "+56992925684",
     sold: false
@@ -40,7 +40,7 @@ const products = [
     id: 5,
     name: "Cilindro 11kg",
     price: "$20.000",
-    images: ["images/IMG_9359.JPG"],
+    images: ["images/IMG_9359.jpg"],
     description: "",
     whatsapp: "+56992925684",
     sold: true
@@ -49,7 +49,7 @@ const products = [
     id: 6,
     name: "Cilindro 5kg",
     price: "$15.000",
-    images: ["images/IMG_9358.JPG"],
+    images: ["images/IMG_9358.jpg"],
     description: "",
     whatsapp: "+56992925684",
     sold: true
@@ -58,7 +58,7 @@ const products = [
     id: 7,
     name: "Faroles",
     price: "$15.000",
-    images: ["images/Faroles.JPG"],
+    images: ["images/Faroles.jpg"],
     description: "Faroles: Uno con todos los vidrios completos y otro con un solo vidrio. Ambos por $15.000",
     whatsapp: "+56992925684",
     sold: false
@@ -67,7 +67,7 @@ const products = [
     id: 8,
     name: "Cuadro creación de Adán",
     price: "$15.000",
-    images: ["images/Creacion_adan.JPG"],
+    images: ["images/Creacion_adan.jpg"],
     description: "Detalle en el borde del cuadro, marca de humedad",
     whatsapp: "+56992925684",
     sold: false
@@ -76,7 +76,7 @@ const products = [
     id: 9,
     name: "Mueble de almacenaje",
     price: "$50.000",
-    images: ["images/Mueble_ruedas.JPG","images/Mueble_ruedas_back.JPG","images/Mueble_ruedas_dentro.JPG"],
+    images: ["images/Mueble_ruedas.jpg","images/Mueble_ruedas_back.jpg","images/Mueble_ruedas_dentro.jpg"],
     "description": "Práctico mueble bajo con ruedas, ideal para oficina, dormitorio o sala de estar. Perfecto para guardar documentos, utensilios u otros objetos, y moverlo fácilmente gracias a sus ruedas.\n\nCaracterísticas:\n- Color madera tono caoba.\n- 2 puertas con tiradores metálicos.\n- Con ruedas para fácil desplazamiento.\n- Buen estado general (detalle menor por uso normal).\n\nMedidas:\n- Ancho: 85 cm\n- Alto: 45 cm\n- Profundidad: 37 cm",
     whatsapp: "+56992925684",
     sold: false
@@ -95,7 +95,7 @@ const products = [
     id: 11,
     name: "Estufa pequeña Somela",
     price: "$25.000",
-    images: ["images/Estufa_somela.JPG","images/Estufa_somela_back.JPG"],
+    images: ["images/Estufa_somela.jpg","images/Estufa_somela_back.jpg"],
     description: "",
     whatsapp: "+56992925684",
     sold: false
@@ -104,7 +104,7 @@ const products = [
     id: 12,
     name: "Escritorio con repisas",
     price: "$40.000",
-    images: ["images/Escritorio_repisas.JPG","images/Escritorio_repisas_2.JPG","images/Escritorio_repisas_3.JPG","images/Escritorio_repisas_4.JPG","images/Escritorio_repisas_5.JPG","images/Escritorio_repisas_6.JPG"],
+    images: ["images/Escritorio_repisas.jpg","images/Escritorio_repisas_2.jpg","images/Escritorio_repisas_3.jpg","images/Escritorio_repisas_4.jpg","images/Escritorio_repisas_5.jpg","images/Escritorio_repisas_6.jpg"],
     "description": "Escritorio con repisas y dos cajones, ideal para guardar diferentes objetos, libros o artículos.\n\nMedidas:\n- Alto: 1,75 m\n- Ancho: 1,00 m",
     whatsapp: "+56992925684",
     sold: false
@@ -113,7 +113,7 @@ const products = [
     id: 13,
     name: "Congeladora Haier",
     price: "$65.000",
-    images: ["images/IMG_9372.PNG","images/IMG_9373.JPG"],
+    images: ["images/IMG_9372.png","images/IMG_9373.jpg"],
     "description": "Congeladora Haier con termostato regulado, excelente para mantener tus bebidas o productos fríos.\n\nDetalles:\n- Raspones o hendiduras pequeñas sutiles por uso.\n- Todo lo demás funciona perfectamente.",
     whatsapp: "+56992925684",
     sold: false
@@ -122,7 +122,7 @@ const products = [
     id: 14,
     name: "Mesa de apoyo con repisa de vidrio",
     price: "$65.000",
-    images: ["images/Mesa_apoyo.JPG","images/Mesa_apoyo_2.JPG"],
+    images: ["images/Mesa_apoyo.jpg","images/Mesa_apoyo_2.jpg"],
     "description": "\nDetalles:\n- Algunos rayones leves en la superficie por desgaste.\n- El resto en perfecto estado.\n\nMedidas:\n- Alto: 85 cm\n- Largo: 108 cm\n- Profundidad: 34 cm",
     whatsapp: "+56992925684",
     sold: false
