@@ -86,7 +86,7 @@ const products = [
     id: 10,
     name: "Mueble de entrada",
     price: "$15.000",
-    images: ["images/Mueble_entrada.JPG"],
+    images: ["images/Mueble_entrada.jpg"],
     description: "",
     whatsapp: "+56992925684",
     sold: true
