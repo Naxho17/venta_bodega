@@ -96,7 +96,7 @@ const products = [
     name: "Estufa pequeña Somela",
     price: "$25.000",
     images: ["images/Estufa_somela.jpg","images/Estufa_somela_back.jpg"],
-    description: "",
+    "description": "Estufa Somela pequeña, ideal para espacios reducidos. A pesar de tener varios años de uso, funciona correctamente y entrega buen rendimiento.\n\nCaracterísticas:\n- Marca: Somela.\n- Tamaño compacto, fácil de ubicar en distintos ambientes.\n- Funciona sin problemas.\n- Presenta detalles estéticos por antigüedad: rayones, marcas de uso y desgaste normal",
     whatsapp: "+56992925684",
     sold: false
   },
@@ -124,6 +124,33 @@ const products = [
     price: "$65.000",
     images: ["images/Mesa_apoyo.jpg","images/Mesa_apoyo_2.jpg"],
     "description": "\nDetalles:\n- Algunos rayones leves en la superficie por desgaste.\n- El resto en perfecto estado.\n\nMedidas:\n- Alto: 85 cm\n- Largo: 108 cm\n- Profundidad: 34 cm",
+    whatsapp: "+56992925684",
+    sold: false
+  },
+  {
+    id: 15,
+    name: "Mesa de centro",
+    price: "$65.000",
+    images: ["images/Mesa_centro.jpg","images/Mesa_centro_2.jpg","images/Mesa_centro_3.jpg"],
+    "description": "Mesa de centro de madera con diseño clásico y elegante. La cubierta presenta un acabado brillante con diseño geométrico en vetas, aportando un estilo sofisticado al mueble.\n\nCaracterísticas:\n- Material: madera.\n- Diseño rectangular con bordes curvos.\n- Cubierta con patrón geométrico en la veta.\n- Acabado en tonos marrón.\n\nEstado:\n- Usada, con detalles de desgaste y rayones visibles en la superficie y en las patas.\n- Estructuralmente firme.\n\nIdeal para sala de estar o living, con un toque vintage y distinguido.",
+    whatsapp: "+56992925684",
+    sold: false
+  },
+  {
+    id: 16,
+    name: "Adorno decorativo",
+    price: "$10.000",
+    images: ["images/Adorno.jpg"],
+    "description": "Adorno decorativo rústico compuesto por una bandeja alargada con tres esferas en su interior. Las esferas presentan un diseño en tonos blanco y negro con banda de cuerda natural alrededor.\n\nCaracterísticas:\n- Estilo artesanal/rústico.\n- Bandeja alargada en tono claro.\n- 3 esferas decorativas (2 negras, 1 blanca) con detalle de cuerda.\n- Ideal para centro de mesa, repisa o decoración de sala.\nEstado:\n- Usado, con leves detalles por el tiempo.\n- Buen estado general.",
+    whatsapp: "+56992925684",
+    sold: false
+  },
+  {
+    id: 17,
+    name: "Jarrones decorativos",
+    price: "$10.000",
+    images: ["images/Jarrones.jpg"],
+    "description": "Par de jarrones decorativos de metal con diseño de mariposa en tonos tierra. Estilo rústico/vintage, con asa curva y boca inclinada.\n\nCaracterísticas:\n- Diseño floral con mariposa.\n- Acabado envejecido.\n- Ideal para decoración de interiores.\n\nEstado:\n- Usados, en buen estado general.",
     whatsapp: "+56992925684",
     sold: false
   },
