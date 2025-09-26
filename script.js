@@ -192,7 +192,7 @@ function renderProducts() {
       <div class="product-info">
         <div class="product-name">${product.name}</div>
         <div class="product-price">${product.price}</div>
-        <div class="product-description">${product.description.substring(0,100)}...</div>
+        <div class="product-description">${product.description.substring(0,100)}${product.description.length > 100 ? '...' : ''}</div>
       </div>
     `;
     
@@ -227,7 +227,6 @@ function updateProductsCounter(count) {
 }
 
 // ================== MODAL ==================
-// ================== MODAL MEJORADO ==================
 function openModal(index) {
   currentProductIndex = index;
   currentImageIndex = 0;
@@ -257,14 +256,22 @@ function openModal(index) {
     thumbnails.appendChild(thumb);
   });
   
-  // Botón de WhatsApp
+  // Botón de WhatsApp o mensaje de vendido
   const actions = document.getElementById('modalActions');
-  actions.innerHTML = `
-    <a href="https://wa.me/${product.whatsapp.replace('+', '')}?text=Hola! Me interesa el producto: ${product.name} - ${product.price}" 
-       class="btn btn-whatsapp" target="_blank">
-      💬 Comprar por WhatsApp
-    </a>
-  `;
+  if (product.sold) {
+    actions.innerHTML = `
+      <div class="sold-message">
+        ❌ Este producto ya fue vendido
+      </div>
+    `;
+  } else {
+    actions.innerHTML = `
+      <a href="https://wa.me/${product.whatsapp.replace('+', '')}?text=Hola! Me interesa el producto: ${product.name} - ${product.price}" 
+         class="btn btn-whatsapp" target="_blank">
+        💬 Comprar por WhatsApp
+      </a>
+    `;
+  }
   
   // Clase sold para modal
   const modalContent = document.querySelector('.modal-content');
