@@ -14,26 +14,11 @@
 
 body {
   font-family: 'Arial', sans-serif;
-  background: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat fixed;
-  background-attachment: fixed;
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
   min-height: 100vh;
   color: #333;
   line-height: 1.6;
   position: relative;
-  
-}
-
-/* Overlay opcional para mejorar legibilidad */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: -1;
-  pointer-events: none;
 }
 
 /* Header */
@@ -424,8 +409,8 @@ body::before {
   position: absolute;
   top: 15px;
   right: 20px;
-  background: rgba(0, 0, 0, 0.7);
-  border: 1px solid #555;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid #555;
   font-size: 28px;
   cursor: pointer;
   color: #ffffff;
@@ -442,11 +427,11 @@ body::before {
 }
 
 .modal-close:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #4ade80;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
   transform: scale(1.1);
   box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-  border-color: #4ade80;
+  border-color: #777;
 }
 
 /* Galería */
@@ -557,6 +542,22 @@ body::before {
   padding: 0.8rem 1.8rem;
   font-size: 1rem;
   border-radius: 30px;
+}
+
+/* Mensaje de producto vendido */
+.sold-message {
+  background: rgba(108, 117, 125, 0.2);
+  color: #adb5bd;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-align: center;
+  border: 2px solid rgba(108, 117, 125, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 /* Responsive */

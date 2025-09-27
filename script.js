@@ -70,7 +70,7 @@ const products = [
     images: ["images/Creacion_adan.jpg"],
     description: "Detalle en el borde del cuadro, marca de humedad",
     whatsapp: "+56992925684",
-    sold: false
+    sold: true
   },
   {
     id: 9,
@@ -132,7 +132,7 @@ const products = [
     name: "Mesa de centro",
     price: "$65.000",
     images: ["images/Mesa_centro.jpg","images/Mesa_centro_2.jpg","images/Mesa_centro_3.jpg"],
-    "description": "Mesa de centro de madera con diseño clásico y elegante. La cubierta presenta un acabado brillante con diseño geométrico en vetas, aportando un estilo sofisticado al mueble.\n\nCaracterísticas:\n- Material: madera.\n- Diseño rectangular con bordes curvos.\n- Cubierta con patrón geométrico en la veta.\n- Acabado en tonos marrón.\n\nEstado:\n- Usada, con detalles de desgaste y rayones visibles en la superficie y en las patas.\n- Estructuralmente firme.\n\nIdeal para sala de estar o living, con un toque vintage y distinguido.",
+    "description": "Mesa de centro de madera con diseño clásico y elegante. La cubierta presenta un acabado brillante con diseño geométrico en vetas, aportando un estilo sofisticado al mueble.\n\nCaracterísticas:\n- Material: madera.\n- Diseño rectangular con bordes curvos.\n- Cubierta con patrón geométrico en la veta.\n- Acabado en tonos marrón.\n\nEstado:\n- Usada, con detalles de desgaste y rayones visibles en la superficie y en las patas.\n- Estructuralmente firme.\n\nIdeal para sala de estar o living, con un toque vintage y distinguido.\n\n Medidas\n\n- Largo: 1.20cm\n-Alto: 50cm \n-Ancho:72cm ",
     whatsapp: "+56992925684",
     sold: false
   },
