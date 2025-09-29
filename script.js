@@ -61,7 +61,7 @@ const products = [
     images: ["images/Faroles.jpg"],
     description: "Faroles: Uno con todos los vidrios completos y otro con un solo vidrio. Ambos por $15.000",
     whatsapp: "+56992925684",
-    sold: false
+    sold: true
   },
   {
     id: 8,
