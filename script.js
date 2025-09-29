@@ -74,7 +74,7 @@ const products = [
   },
   {
     id: 9,
-    name: "Mueble de almacenaje",
+    name: "2 Muebles de almacenaje",
     price: "$50.000",
     images: ["images/Mueble_ruedas.jpg","images/Mueble_ruedas_back.jpg","images/Mueble_ruedas_dentro.jpg"],
     "description": "Práctico mueble bajo con ruedas, ideal para oficina, dormitorio o sala de estar. Perfecto para guardar documentos, utensilios u otros objetos, y moverlo fácilmente gracias a sus ruedas.\n\nCaracterísticas:\n- Color madera tono caoba.\n- 2 puertas con tiradores metálicos.\n- Con ruedas para fácil desplazamiento.\n- Buen estado general (detalle menor por uso normal).\n\nMedidas:\n- Ancho: 85 cm\n- Alto: 45 cm\n- Profundidad: 37 cm",
