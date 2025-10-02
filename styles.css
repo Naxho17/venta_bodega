@@ -96,6 +96,23 @@ body {
   color: white;
 }
 
+.btn-category {
+  background: transparent;
+  color: #667eea;
+  border: 2px solid #667eea;
+}
+
+.btn-category.active {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  border-color: #667eea;
+}
+
+.btn-category:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
 .btn-location {
   background: linear-gradient(45deg, #4285f4, #34a853);
   color: white;

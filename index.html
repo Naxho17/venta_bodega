@@ -12,25 +12,32 @@
     <div class="header-content">
       <div class="logo">🛍️ Venta de Bodega</div>
       <div class="nav-buttons">
-        <a href="https://www.google.com/maps/place/Ñuble+1034,+Santiago,+Región+Metropolitana,+Chile" 
-           target="_blank" class="btn btn-location">
+        <button class="btn btn-category active" onclick="changeCategory('products')">
+          🛍️ Productos
+        </button>
+        <button class="btn btn-category" onclick="changeCategory('videogames')">
+          🎮 Videojuegos
+        </button>
+        <a href="https://www.google.com/maps/place/Ñuble+1034,+Santiago,+Región+Metropolitana,+Chile"
+           target="_blank" class="btn btn-location" id="locationBtn">
           📍 ¿Dónde nos ubicamos?
         </a>
       </div>
     </div>
   </header>
- 
+  
   <div class="container">
     <!-- Hero Section -->
     <div class="hero">
-     
+      <h1>Encuentra los mejores productos</h1>
+      <p>Artículos de calidad a precios increíbles</p>
     </div>
-   
-    <!-- Filtros -->
-    <div class="filters-container">
+    
+    <!-- Filtros para Productos -->
+    <div class="filters-container" id="filtersProducts">
       <div class="filters">
         <button class="filter-btn active" onclick="filterProducts('all')">
-          🛍️ Todos los productos
+          🛍️ Todos
         </button>
         <button class="filter-btn" onclick="filterProducts('available')">
           ✅ Disponibles
@@ -40,16 +47,40 @@
         </button>
       </div>
       <div class="products-counter" id="productsCounter">
-        Mostrando 6 productos
+        Mostrando productos
       </div>
     </div>
-   
+
+    <!-- Filtros para Videojuegos -->
+    <div class="filters-container" id="filtersVideogames" style="display: none;">
+      <div class="filters">
+        <button class="filter-btn active" onclick="filterVideogames('all')">
+          🎮 Todos los juegos
+        </button>
+        <button class="filter-btn" onclick="filterVideogames('ps3')">
+          🎮 PS3
+        </button>
+        <button class="filter-btn" onclick="filterVideogames('ps4')">
+          🎮 PS4
+        </button>
+        <button class="filter-btn" onclick="filterVideogames('available')">
+          ✅ Disponibles
+        </button>
+        <button class="filter-btn" onclick="filterVideogames('sold')">
+          ❌ Vendidos
+        </button>
+      </div>
+      <div class="products-counter" id="videogamesCounter">
+        Mostrando videojuegos
+      </div>
+    </div>
+    
     <!-- Products Section -->
     <div id="productos">
       <div class="products-grid" id="productsGrid"></div>
     </div>
   </div>
- 
+  
   <!-- Modal for Product Details -->
   <div class="modal" id="productModal">
     <div class="modal-content">
@@ -68,7 +99,7 @@
       <div id="modalActions"></div>
     </div>
   </div>
- 
+  
   <script src="script.js"></script>
 </body>
 </html>
