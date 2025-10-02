@@ -162,7 +162,7 @@ const videogames = [
     id: 100,
     name: "Uncharted",
     price: "$8.000",
-    images: ["images/Uncharted.jpg","images/Uncharted_d.jpg","images/uncharted_a.jpg"],
+    images: ["images/Uncharted.jpg","images/Uncharted_d.jpg","images/Uncharted_a.jpg"],
     description: "Aventura de acción con exploración, tiroteos y tesoros ocultos",
     whatsapp: "+56992925684",
     sold: false,
