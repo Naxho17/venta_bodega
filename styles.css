@@ -1,12 +1,14 @@
 .admin-controls {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  
-  .admin-product-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }* {
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.admin-product-header {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -245,8 +247,6 @@ body {
   font-size: 1rem;
 }
 
-
-
 /* Products Grid */
 .products-grid {
   display: grid;
@@ -258,7 +258,7 @@ body {
 
 /* CARDS CON FONDO NEGRO */
 .product-card {
-  background: #1a1a1a; /* Fondo negro para toda la card */
+  background: #1a1a1a;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -269,7 +269,7 @@ body {
   max-height: 500px;
   display: flex;
   flex-direction: column;
-  border: 1px solid #333; /* Borde sutil */
+  border: 1px solid #333;
 }
 
 .product-card:hover {
@@ -283,10 +283,8 @@ body {
   height: 260px;
   position: relative;
   overflow: hidden;
-  background-color: #610202;; 
+  background-color: #610202;
 }
-
-
 
 .product-image img:hover {
   transform: scale(1.05);
@@ -300,7 +298,7 @@ body {
   gap: 0.6rem;
   flex-grow: 1;
   justify-content: space-between;
-  background: #1a1a1a; /* Asegurar fondo negro */
+  background: #1a1a1a;
 }
 
 .product-image img {
@@ -314,7 +312,7 @@ body {
 .product-name {
   font-size: 1.4rem;
   font-weight: 700;
-  color: #ffffff; /* Texto blanco */
+  color: #ffffff;
   line-height: 1.3;
   margin-bottom: 0.5rem;
   letter-spacing: -0.025em;
@@ -322,7 +320,7 @@ body {
 
 .product-price {
   font-size: 1.8rem;
-  color: #4ade80; /* Verde claro para el precio */
+  color: #4ade80;
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 0.8rem;
@@ -376,7 +374,6 @@ body {
     0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-
 .product-card.sold {
   filter: grayscale(40%) brightness(0.9);
   opacity: 0.95; 
@@ -400,8 +397,8 @@ body {
 }
 
 .modal-content {
-  background: #1a1a1a; /* Mismo fondo negro que las cards */
-  color: #ffffff; /* Texto blanco */
+  background: #1a1a1a;
+  color: #ffffff;
   margin: 3% auto;
   padding: 2.5rem;
   border-radius: 20px;
@@ -411,11 +408,10 @@ body {
   position: relative;
   transition: 0.3s;
   line-height: 1.6;
-  border: 1px solid #333; /* Borde sutil como las cards */
+  border: 1px solid #333;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
 }
 
-/* Modal más oscuro si el producto está vendido */
 .modal-content.sold {
   background: #0f0f0f;
   color: #888;
@@ -451,7 +447,6 @@ body {
   border-color: #777;
 }
 
-/* Galería */
 .modal-gallery {
   position: relative;
   display: flex;
@@ -485,11 +480,10 @@ body {
   width: 100%;
   height: 400px;
   object-fit: contain;
-  background-color: #610202;;
+  background-color: #610202;
   border-radius: 15px;
 }
 
-/* Imagen gris en modal si está vendido */
 .modal-image.sold {
   filter: grayscale(100%);
   opacity: 0.7;
@@ -521,12 +515,11 @@ body {
   transform: scale(1.05);
 }
 
-/* Textos del modal con mejor espaciado y colores para tema oscuro */
 .modal-content h2 {
   font-size: 1.8rem;
   margin-bottom: 0.8rem;
   line-height: 1.3;
-  color: #ffffff; /* Nombre en blanco */
+  color: #ffffff;
 }
 
 .modal-content p {
@@ -537,12 +530,12 @@ body {
 #modalPrice {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #4ade80; /* Mismo verde que las cards */
+  color: #4ade80;
   text-shadow: 0 1px 2px rgba(74, 222, 128, 0.3);
 }
 
 #modalDescription {
-  color: #d1d5db; /* Mismo gris claro que las cards */
+  color: #d1d5db;
   font-size: 1rem;
   letter-spacing: 0.2px;
 }
@@ -561,7 +554,6 @@ body {
   border-radius: 30px;
 }
 
-/* Mensaje de producto vendido */
 .sold-message {
   background: rgba(108, 117, 125, 0.2);
   color: #adb5bd;
@@ -577,60 +569,101 @@ body {
   gap: 0.5rem;
 }
 
-/* Responsive */
+/* ============ RESPONSIVE MEJORADO ============ */
 @media (max-width: 768px) {
+  /* Hero */
   .hero h1 {
-    font-size: 2.2rem;
+    font-size: 2rem;
     line-height: 1.2;
+    margin-bottom: 0.8rem;
   }
 
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .hero {
+    margin-bottom: 2rem;
+  }
+
+  /* Products Grid */
   .products-grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
     padding: 0.5rem 0;
+  }
+
+  /* Header Mejorado */
+  .header {
+    padding: 0.8rem 1rem;
   }
 
   .header-content {
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.8rem;
+    align-items: stretch;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+    text-align: center;
   }
 
   .nav-buttons {
     width: 100%;
-    justify-content: center;
+    flex-direction: column;
+    gap: 0.6rem;
   }
 
+  .btn-category,
   .btn-location {
+    width: 100%;
     font-size: 0.9rem;
-    padding: 0.6rem 1.2rem;
+    padding: 0.8rem 1rem;
+    text-align: center;
   }
 
+  /* Filtros Mejorado */
   .filters-container {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     text-align: center;
-    padding: 1.5rem 1rem;
+    padding: 1rem;
+    gap: 1rem;
   }
 
   .filters {
     justify-content: center;
     width: 100%;
+    gap: 0.6rem;
   }
 
   .filter-btn {
-    font-size: 0.85rem;
-    padding: 0.7rem 1.2rem;
+    font-size: 0.8rem;
+    padding: 0.6rem 1rem;
     flex: 1;
-    min-width: 120px;
+    min-width: auto;
+    white-space: nowrap;
   }
 
   .products-counter {
-    font-size: 0.8rem;
-    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    margin-top: 0;
+    padding: 0.6rem 1rem;
+  }
+
+  /* Cards */
+  .product-card {
+    min-height: 400px;
+    max-height: 450px;
+  }
+
+  .product-image {
+    height: 220px;
   }
 
   .product-info {
-    padding: 1.5rem;
+    padding: 1.2rem;
   }
 
   .product-name {
@@ -638,40 +671,134 @@ body {
   }
 
   .product-price {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
   }
 
+  .product-description {
+    font-size: 0.9rem;
+  }
+
+  /* Modal */
   .modal-content {
-    margin: 5% 1rem;
-    padding: 2rem;
+    margin: 3% 0.8rem;
+    padding: 1.8rem;
+    max-width: 95%;
+  }
+
+  .modal-close {
+    top: 10px;
+    right: 10px;
+    width: 38px;
+    height: 38px;
+    font-size: 24px;
   }
 
   .gallery-btn {
-    font-size: 1.5rem;
-    padding: 0.5rem 0.8rem;
+    font-size: 1.3rem;
+    padding: 0.4rem 0.7rem;
   }
 
+  .gallery-btn.left { left: 5px; }
+  .gallery-btn.right { right: 5px; }
+
   .modal-image {
-    height: 300px;
+    height: 280px;
+  }
+
+  .thumbnails img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .modal-content h2 {
+    font-size: 1.5rem;
+  }
+
+  #modalPrice {
+    font-size: 1.3rem;
+  }
+
+  #modalDescription {
+    font-size: 0.95rem;
   }
 
   #modalActions {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+    margin-top: 1.5rem;
   }
 
   #modalActions .btn {
     width: 100%;
-    max-width: 300px;
+    max-width: 100%;
   }
 
-  .admin-controls {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+  .container {
+    padding: 1rem;
   }
-  
-  .admin-product-header {
-    flex-direction: column;
-    align-items: flex-start;
+}
+
+/* Pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.6rem;
+  }
+
+  .hero p {
+    font-size: 0.95rem;
+  }
+
+  .logo {
+    font-size: 1.3rem;
+  }
+
+  .btn-category,
+  .btn-location {
+    font-size: 0.85rem;
+    padding: 0.7rem 0.8rem;
+  }
+
+  .filter-btn {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.8rem;
+  }
+
+  .products-counter {
+    font-size: 0.8rem;
+  }
+
+  .product-card {
+    min-height: 380px;
+    max-height: 420px;
+  }
+
+  .product-image {
+    height: 200px;
+  }
+
+  .product-name {
+    font-size: 1.1rem;
+  }
+
+  .product-price {
+    font-size: 1.3rem;
+  }
+
+  .modal-content {
+    margin: 2% 0.5rem;
+    padding: 1.5rem;
+  }
+
+  .modal-image {
+    height: 250px;
+  }
+
+  .thumbnails {
+    gap: 0.5rem;
+  }
+
+  .thumbnails img {
+    width: 50px;
+    height: 50px;
   }
 }
