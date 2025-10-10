@@ -152,6 +152,51 @@ const products = [
     description: "Par de jarrones decorativos de metal con diseño de mariposa en tonos tierra. Estilo rústico/vintage, con asa curva y boca inclinada.\n\nCaracterísticas:\n- Diseño floral con mariposa.\n- Acabado envejecido.\n- Ideal para decoración de interiores.\n\nEstado:\n- Usados, en buen estado general.",
     whatsapp: "+56992925684",
     sold: true
+  },
+  {
+    id: 18,
+    name: "Mueble de madera con vitrinas y compartimientos",
+    price: "$100.000",
+    images: ["images/Mueble_vidrio.jpg","images/Mueble_vidrio_d.jpg","images/Mueble_vidrio_l.jpg","images/Mueble_vidrio_inter.jpg","images/Mueble_vidrio_a.jpg"],
+    description: "Mueble de madera con vitrinas y compartimientos. Ideal para sala, oficina o living. Cuenta con dos puertas de vidrio al frente y varias repisas laterales perfectas para organizar CDs, documentos o accesorios.\n\nCaracterísticas:\n- Madera sólida y resistente.\n- Puertas con vidrio.\n- Diseño clásico y funcional.\n- Compartimientos laterales tipo repisa.\n\nMedidas:\n- Largo: 101 cm\n- Alto: 74 cm\n- Ancho: 60 cm\n\nEstado:\n- Usado, en muy buen estado general.\n- Madera firme y cuidada.",
+    whatsapp: "+56992925684",
+    sold: false
+  },
+  {
+    id: 19,
+    name: "Lavavajillas Fensa",
+    price: "$160.000",
+    images: ["images/Lava.jpg","images/Lava_d.jpg","images/Lava_c.jpg","images/Lava_inter.jpg"],
+    description: "Lavavajillas Fensa automático de libre instalación en color blanco. Ideal para mantener la vajilla limpia con comodidad y eficiencia. Cuenta con panel de control frontal con distintos programas de lavado y funciones.\n\nCaracterísticas:\n- Capacidad para múltiples cubiertos y utensilios.\n- Panel digital con indicadores de programa.\n- Funcionamiento silencioso.\n- Diseño compacto y resistente.\n\nEstado:\n- Usado, en buen estado general.\n- Limpio y bien conservado.\n- Listo para conectar y usar.",
+    whatsapp: "+56992925684",
+    sold: false
+  },
+  {
+    id: 20,
+    name: "Centrifuga",
+    price: "$10.000",
+    images: ["images/Centrifuga.jpg","images/Centrifuga_h.jpg","images/Centrifuga_d.jpg"],
+    description: "Centrífuga de ropa marca ARNO, diseño compacto y eficiente. Ideal para secar prendas rápidamente ahorrando tiempo y energía. Perfecta para uso doméstico o en espacios reducidos.\n\nCaracterísticas:\n- Marca: ARNO.\n- Alta velocidad de centrifugado.\n- Diseño vertical compacto.\n- Fácil de usar y limpiar.\n- Ahorro de energía y espacio.\n\nMedidas aproximadas:\n- Alto: 75 cm\n- Diámetro: 40 cm\n\nEstado:\n- Usada, en buen estado general.\n- Totalmente funcional.\n- Lista para usar.",
+    whatsapp: "+56992925684",
+    sold: false
+  },
+  {
+    id: 21,
+    name: "Extractor de jugo Oster",
+    price: "$30.000",
+    images: ["images/Extractor_f.jpg","images/Extractor.jpg"],
+    description: "Extractor de jugos marca Oster, diseño práctico y funcional. Ideal para preparar jugos naturales de frutas y verduras en casa. Perfecto para uso doméstico.\n\nCaracterísticas:\n- Marca: Oster.\n- Motor de 450 watts.\n- Filtro de acero inoxidable.\n- Apto para frutas y verduras enteras.\n- Fácil de limpiar y usar.",
+    whatsapp: "+56992925684",
+    sold: false
+  },
+  {
+    id: 22,
+    name: "Locker metalico",
+    price: "$70.000",
+    images: ["images/Estante_casilleros.jpg","images/Estante_casilleros_a.jpg"],
+    description: "Locker metálico de 9 puertas, ideal para guardar objetos personales en oficinas, talleres, escuelas o gimnasios. Estructura resistente y funcional. Perfecto para mantener organizados y seguros tus pertenencias.\n\nCaracterísticas:\n- Material: Metal.\n- 9 compartimentos individuales con puerta.\n- Cerraduras para candado.\n\n Medidas\n- Alto: 1,62 cm\n- Ancho: 46 cm\n- Largo 83 cm\n\nEstado:\n- Usado, en buen estado general.\n- Detalle en la pata derecha del estante .\n- Estructura firme y funcional.",
+    whatsapp: "+56992925684",
+    sold: false
   }
 ];
 
@@ -215,7 +260,7 @@ const videogames = [
     images: ["images/Fifa14.jpg","images/Fifa14_d.jpg","images/Fifa14_a.jpg"],
     description: "Juego de futbol con licencias oficiales, modos variados y jugabilidad realista.",
     whatsapp: "+56992925684",
-    sold: false,
+    sold: true,
     console: "ps3"
   },
   {
@@ -253,9 +298,10 @@ const header = document.querySelector('.header');
 window.addEventListener('scroll', () => {
   const currentScroll = window.pageYOffset;
   
-  // Si está en el top, siempre mostrar el header
-  if (currentScroll <= 0) {
+  // Si está casi en el top (menos de 50px), mostrar el header
+  if (currentScroll <= 50) {
     header.classList.remove('hidden');
+    lastScroll = currentScroll;
     return;
   }
   
@@ -263,10 +309,8 @@ window.addEventListener('scroll', () => {
   if (currentScroll > lastScroll && currentScroll > 80) {
     header.classList.add('hidden');
   } 
-  // Si hace scroll hacia arriba, mostrar
-  else if (currentScroll < lastScroll) {
-    header.classList.remove('hidden');
-  }
+  // Si hace scroll hacia arriba, NO mostrar (solo se muestra al llegar arriba)
+  // El header permanece oculto hasta que llegue al tope
   
   lastScroll = currentScroll;
 });
