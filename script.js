@@ -176,7 +176,7 @@ const products = [
     name: "Centrifuga",
     price: "$10.000",
     images: ["images/Centrifuga.jpg","images/Centrifuga_h.jpg","images/Centrifuga_d.jpg"],
-    description: "Centrífuga de ropa marca ARNO, diseño compacto y eficiente. Ideal para secar prendas rápidamente ahorrando tiempo y energía. Perfecta para uso doméstico o en espacios reducidos.\n\nCaracterísticas:\n- Marca: ARNO.\n- Alta velocidad de centrifugado.\n- Diseño vertical compacto.\n- Fácil de usar y limpiar.\n- Ahorro de energía y espacio.\n\nMedidas aproximadas:\n- Alto: 75 cm\n- Diámetro: 40 cm\n\nEstado:\n- Usada, en buen estado general.\n- Totalmente funcional.\n- Lista para usar.",
+    description: "Centrífuga de ropa marca ARNO, diseño compacto y eficiente. Ideal para secar prendas rápidamente ahorrando tiempo y energía. Perfecta para uso doméstico o en espacios reducidos.\n\nCaracterísticas:\n- Marca: ARNO.\n- Alta velocidad de centrifugado.\n- Diseño vertical compacto.\n- Fácil de usar y limpiar.\n- Ahorro de energía y espacio.\n\nEstado:\n- Usada, en buen estado general.\n- Totalmente funcional.\n- Lista para usar.",
     whatsapp: "+56992925684",
     sold: false
   },
