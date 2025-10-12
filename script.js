@@ -240,7 +240,7 @@ const videogames = [
     images: ["images/DBZ.jpg","images/DBZ_d.jpg","images/DBZ_a.jpg"],
     description: "Juego de peleas en 3D con mas de 90 personajes de la saga Dragon ball",
     whatsapp: "+56992925684",
-    sold: false,
+    sold: true,
     console: "ps3"
   },
   {
