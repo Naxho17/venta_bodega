@@ -298,8 +298,8 @@ const header = document.querySelector('.header');
 window.addEventListener('scroll', () => {
   const currentScroll = window.pageYOffset;
   
-  // Si está casi en el top (menos de 50px), mostrar el header
-  if (currentScroll <= 50) {
+  // Si está cerca del top (menos de 150px), mostrar el header
+  if (currentScroll <= 150) {
     header.classList.remove('hidden');
     lastScroll = currentScroll;
     return;
@@ -309,8 +309,8 @@ window.addEventListener('scroll', () => {
   if (currentScroll > lastScroll && currentScroll > 80) {
     header.classList.add('hidden');
   } 
-  // Si hace scroll hacia arriba, NO mostrar (solo se muestra al llegar arriba)
-  // El header permanece oculto hasta que llegue al tope
+  // Si hace scroll hacia arriba, NO mostrar (solo se muestra al llegar a 150px del top)
+  // El header permanece oculto hasta que llegue a esa zona
   
   lastScroll = currentScroll;
 });
