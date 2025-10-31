@@ -210,7 +210,7 @@ const videogames = [
     images: ["images/Uncharted.jpg","images/Uncharted_d.jpg","images/Uncharted_a.jpg"],
     description: "Aventura de acción con exploración, tiroteos y tesoros ocultos",
     whatsapp: "+56992925684",
-    sold: false,
+    sold: true,
     console: "ps3"
   },
   {
@@ -230,7 +230,7 @@ const videogames = [
     images: ["images/Uncharted_3.jpg","images/Uncharted_3d.jpg","images/Uncharted_3a.jpg"],
     description: "Nathan Drake persigue la legendaria ciudad perdida de Ubar , enfrentando a una misteriosa organización y su propio pasado.",
     whatsapp: "+56992925684",
-    sold: false,
+    sold: true,
     console: "ps3"
   },
   {
