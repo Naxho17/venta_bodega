@@ -1,0 +1,50 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+---
+
+<header class="header" id="header">
+  <div class="header-content">
+    <div class="logo">🛍️ Venta de Bodega</div>
+    <div class="nav-buttons">
+      <button class="btn btn-category active" data-category="products">
+        🛍️ Productos
+      </button>
+      <button class="btn btn-category" data-category="videogames">
+        🎮 Videojuegos
+      </button>
+      <a href="https://www.google.com/maps/place/Ñuble+1034,+Santiago,+Región+Metropolitana,+Chile"
+         target="_blank" 
+         class="btn btn-location" 
+         id="locationBtn">
+        📍 ¿Dónde nos ubicamos?
+      </a>
+      <ThemeToggle />
+    </div>
+  </div>
+</header>
+
+<script>
+  // OCULTAR/MOSTRAR HEADER AL HACER SCROLL
+  let lastScroll = 0;
+  const header = document.querySelector('.header');
+
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    // Si está cerca del top (menos de 150px), mostrar el header
+    if (currentScroll <= 150) {
+      header?.classList.remove('hidden');
+      lastScroll = currentScroll;
+      return;
+    }
+    
+    // Si hace scroll hacia abajo y ha bajado más de 80px, ocultar
+    if (currentScroll > lastScroll && currentScroll > 80) {
+      header?.classList.add('hidden');
+    } 
+    
+    lastScroll = currentScroll;
+  });
+
+</script>
+

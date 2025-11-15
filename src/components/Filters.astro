@@ -1,0 +1,53 @@
+---
+interface Props {
+  category: 'products' | 'videogames';
+  currentFilter: string;
+  count: number;
+}
+
+const { category, currentFilter, count } = Astro.props;
+---
+
+{category === 'products' ? (
+  <div class="filters-container" id="filtersProducts">
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">
+        🛍️ Todos
+      </button>
+      <button class="filter-btn" data-filter="available">
+        ✅ Disponibles
+      </button>
+      <button class="filter-btn" data-filter="sold">
+        ❌ Vendidos
+      </button>
+    </div>
+    <div class="products-counter" id="productsCounter">
+      Mostrando {count} {count === 1 ? 'producto' : 'productos'}
+    </div>
+  </div>
+) : (
+  <div class="filters-container" id="filtersVideogames" style="display: none;">
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">
+        🎮 Todos los juegos
+      </button>
+      <button class="filter-btn" data-filter="ps3">
+        🎮 PS3
+      </button>
+      <button class="filter-btn" data-filter="ps4">
+        🎮 PS4
+      </button>
+      <button class="filter-btn" data-filter="available">
+        ✅ Disponibles
+      </button>
+      <button class="filter-btn" data-filter="sold">
+        ❌ Vendidos
+      </button>
+    </div>
+    <div class="products-counter" id="videogamesCounter">
+      Mostrando {count} {count === 1 ? 'juego' : 'juegos'}
+    </div>
+  </div>
+)}
+
+

@@ -1,0 +1,23 @@
+---
+---
+
+<!-- Modal for Product Details -->
+<div class="modal" id="productModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <!-- Galería -->
+    <div class="modal-gallery">
+      <button class="gallery-btn left" onclick="prevImage()">&#10094;</button>
+      <img id="modalImage" class="modal-image" src="" alt="">
+      <button class="gallery-btn right" onclick="nextImage()">&#10095;</button>
+    </div>
+    <!-- Thumbnails -->
+    <div id="modalThumbnails" class="thumbnails"></div>
+    <h2 id="modalName"></h2>
+    <p id="modalPrice"></p>
+    <p id="modalDescription"></p>
+    <div id="modalActions"></div>
+  </div>
+</div>
+
+

@@ -1,0 +1,125 @@
+---
+---
+
+<button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+  <span class="theme-icon">🌙</span>
+  <span class="theme-text">Modo Oscuro</span>
+</button>
+
+<script>
+  // Función para obtener el tema actual
+  function getTheme() {
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        return savedTheme;
+      }
+      // Detectar preferencia del sistema
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    return 'light';
+  }
+
+  // Función para aplicar el tema
+  function setTheme(theme) {
+    if (typeof document !== 'undefined') {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      
+      const toggle = document.getElementById('themeToggle');
+      const icon = toggle?.querySelector('.theme-icon');
+      const text = toggle?.querySelector('.theme-text');
+      
+      if (toggle && icon && text) {
+        if (theme === 'dark') {
+          icon.textContent = '☀️';
+          text.textContent = 'Modo Claro';
+        } else {
+          icon.textContent = '🌙';
+          text.textContent = 'Modo Oscuro';
+        }
+      }
+    }
+  }
+
+  // Inicializar tema al cargar
+  document.addEventListener('DOMContentLoaded', function() {
+    const currentTheme = getTheme();
+    setTheme(currentTheme);
+
+    // Event listener para el botón
+    const toggle = document.getElementById('themeToggle');
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        setTheme(newTheme);
+      });
+    }
+
+    // Escuchar cambios en la preferencia del sistema
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+          setTheme(e.matches ? 'dark' : 'light');
+        }
+      });
+    }
+  });
+  
+  // También inicializar inmediatamente si el DOM ya está listo
+  if (typeof document !== 'undefined' && document.readyState === 'loading') {
+    // El DOM aún no está listo, esperar a DOMContentLoaded
+  } else if (typeof document !== 'undefined') {
+    // El DOM ya está listo
+    const currentTheme = getTheme();
+    setTheme(currentTheme);
+  }
+</script>
+
+<style>
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    border: 2px solid var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+
+  .theme-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-hover);
+    border-color: #667eea;
+  }
+
+  .theme-icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+  }
+
+  .theme-toggle:hover .theme-icon {
+    transform: rotate(20deg);
+  }
+
+  @media (max-width: 768px) {
+    .theme-text {
+      display: none;
+    }
+    
+    .theme-toggle {
+      padding: 0.5rem;
+      width: 40px;
+      height: 40px;
+      justify-content: center;
+    }
+  }
+</style>
+
