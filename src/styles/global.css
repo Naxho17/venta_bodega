@@ -172,7 +172,7 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   transition: left 0.5s;
 }
 
@@ -324,6 +324,30 @@ body {
   gap: 2rem;
   margin-top: 2rem;
   padding: 1rem 0;
+  opacity: 1;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Transiciones suaves para cambio de categoría */
+.products-grid.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.products-grid.fade-in {
+  animation: smoothFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes smoothFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ============ TARJETAS MEJORADAS ============ */
@@ -341,6 +365,66 @@ body {
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border-color);
+  opacity: 0;
+  animation: cardFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Animación escalonada para las tarjetas */
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Delays escalonados para efecto de cascada */
+.card:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.card:nth-child(3) {
+  animation-delay: 0.15s;
+}
+
+.card:nth-child(4) {
+  animation-delay: 0.2s;
+}
+
+.card:nth-child(5) {
+  animation-delay: 0.25s;
+}
+
+.card:nth-child(6) {
+  animation-delay: 0.3s;
+}
+
+.card:nth-child(7) {
+  animation-delay: 0.35s;
+}
+
+.card:nth-child(8) {
+  animation-delay: 0.4s;
+}
+
+.card:nth-child(9) {
+  animation-delay: 0.45s;
+}
+
+.card:nth-child(10) {
+  animation-delay: 0.5s;
+}
+
+.card:nth-child(n+11) {
+  animation-delay: 0.55s;
 }
 
 .card:hover {
@@ -373,6 +457,12 @@ body {
   border: 2px solid var(--border-color);
   flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  /* Optimizaciones de rendering */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  will-change: opacity;
+  content-visibility: auto;
 }
 
 .imge .info-container {
@@ -606,7 +696,7 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   border: none;
   color: rgb(255, 255, 255);
   font-size: 1.8rem;
@@ -618,11 +708,16 @@ body {
 }
 
 .gallery-btn:hover {
-  background: rgba(0,0,0,0.8);
+  background: rgba(0, 0, 0, 0.8);
 }
 
-.gallery-btn.left { left: 15px; }
-.gallery-btn.right { right: 15px; }
+.gallery-btn.left {
+  left: 15px;
+}
+
+.gallery-btn.right {
+  right: 15px;
+}
 
 .modal-image {
   width: 100%;
@@ -785,54 +880,54 @@ body {
     gap: 1.5rem;
     padding: 0.5rem 0;
   }
-  
+
   .card {
     height: auto;
     min-height: 300px;
   }
-  
+
   .imge {
     min-height: 140px;
     padding: 10px;
     gap: 8px;
   }
-  
+
   .imge .product-image {
     width: 100px;
     height: 100px;
     min-width: 100px;
     min-height: 100px;
   }
-  
+
   .imge .UserName {
     font-size: 12px;
     padding: 8px 10px;
   }
-  
+
   .imge .Id {
     font-size: 17px;
     padding: 8px 10px;
   }
-  
+
   .card .estado {
     margin: 6px auto;
     padding: 5px 12px;
     font-size: 0.65rem;
   }
-  
+
   .social-media {
     padding: 10px;
   }
-  
+
   .social-media .share-buttons {
     gap: 10px;
   }
-  
+
   .social-media .share-btn {
     width: 32px;
     height: 32px;
   }
-  
+
   .social-media .share-btn svg {
     width: 20px;
     height: 20px;
@@ -926,8 +1021,13 @@ body {
     padding: 0.4rem 0.7rem;
   }
 
-  .gallery-btn.left { left: 5px; }
-  .gallery-btn.right { right: 5px; }
+  .gallery-btn.left {
+    left: 5px;
+  }
+
+  .gallery-btn.right {
+    right: 5px;
+  }
 
   .modal-image {
     height: 280px;
@@ -1003,46 +1103,46 @@ body {
   .products-counter {
     font-size: 0.8rem;
   }
-  
+
   .products-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-  
+
   .products-grid {
     grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
     gap: 1rem;
   }
-  
+
   .card {
     height: auto;
     min-height: 290px;
   }
-  
+
   .imge {
     min-height: 135px;
     padding: 8px;
     gap: 8px;
   }
-  
+
   .imge .product-image {
     width: 95px;
     height: 95px;
     min-width: 95px;
     min-height: 95px;
   }
-  
+
   .imge .UserName {
     font-size: 11px;
     padding: 7px 8px;
     line-height: 1.3;
   }
-  
+
   .imge .Id {
     font-size: 15px;
     padding: 7px 8px;
   }
-  
+
   .card .estado {
     margin: 5px auto;
     padding: 4px 10px;
@@ -1052,16 +1152,16 @@ body {
   .social-media {
     padding: 8px;
   }
-  
+
   .social-media .share-buttons {
     gap: 8px;
   }
-  
+
   .social-media .share-btn {
     width: 32px;
     height: 32px;
   }
-  
+
   .social-media .share-btn svg {
     width: 19px;
     height: 19px;

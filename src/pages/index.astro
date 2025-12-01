@@ -1,22 +1,26 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Filters from '../components/Filters.astro';
-import ProductModal from '../components/ProductModal.astro';
-import Footer from '../components/Footer.astro';
-import { products } from '../data/products.js';
-import { videogames } from '../data/videogames.js';
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Filters from "../components/Filters.astro";
+import ProductModal from "../components/ProductModal.astro";
+import Footer from "../components/Footer.astro";
+import { products } from "../data/products.js";
+import { videogames } from "../data/videogames.js";
 
 const initialCount = products.length;
 ---
 
 <Layout title="Venta de Bodega">
   <Header />
-  
+
   <main class="container">
     <Filters category="products" currentFilter="all" count={initialCount} />
-    <Filters category="videogames" currentFilter="all" count={videogames.length} />
-   
+    <Filters
+      category="videogames"
+      currentFilter="all"
+      count={videogames.length}
+    />
+
     <!-- Products Section -->
     <div id="productos">
       <div class="products-grid" id="productsGrid"></div>
@@ -34,271 +38,366 @@ const initialCount = products.length;
 
   let currentProductIndex = -1;
   let currentImageIndex = 0;
-  let currentCategory = 'products';
-  let currentFilter = 'all';
+  let currentCategory = "products";
+  let currentFilter = "all";
   let currentDataSource = products;
 
   // ================== CAMBIAR CATEGORÍA ==================
   function changeCategory(category) {
-    currentCategory = category;
-    currentFilter = 'all';
+    const grid = document.getElementById("productsGrid");
+    if (!grid) return;
 
-    // Actualizar botones de categoría
-    document.querySelectorAll('.btn-category').forEach(btn => {
-      btn.classList.remove('active');
-      if (btn.getAttribute('data-category') === category) {
-        btn.classList.add('active');
+    // Fade out suave
+    grid.classList.add("fade-out");
+
+    // Esperar a que termine la animación de fade out
+    setTimeout(() => {
+      currentCategory = category;
+      currentFilter = "all";
+
+      // Actualizar botones de categoría
+      document.querySelectorAll(".btn-category").forEach((btn) => {
+        btn.classList.remove("active");
+        if (btn.getAttribute("data-category") === category) {
+          btn.classList.add("active");
+        }
+      });
+
+      // Actualizar botón de ubicación según categoría
+      const locationBtn = document.getElementById("locationBtn");
+      if (locationBtn) {
+        if (category === "videogames") {
+          locationBtn.href =
+            "https://www.google.com/maps/search/Estaci%C3%B3n+%C3%91uble,+Santiago";
+          locationBtn.innerHTML = "📍 Estación Ñuble - Entrega aquí";
+        } else {
+          locationBtn.href =
+            "https://www.google.com/maps/place/Ñuble+1034,+Santiago,+Región+Metropolitana,+Chile";
+          locationBtn.innerHTML = "📍 ¿Dónde nos ubicamos?";
+        }
       }
-    });
 
-    // Actualizar botón de ubicación según categoría
-    const locationBtn = document.getElementById('locationBtn');
-    if (locationBtn) {
-      if (category === 'videogames') {
-        locationBtn.href = 'https://www.google.com/maps/search/Estaci%C3%B3n+%C3%91uble,+Santiago';
-        locationBtn.innerHTML = '📍 Estación Ñuble - Entrega aquí';
+      // Mostrar/ocultar filtros según categoría
+      if (category === "products") {
+        const filtersProducts = document.getElementById("filtersProducts");
+        const filtersVideogames = document.getElementById("filtersVideogames");
+        if (filtersProducts) filtersProducts.style.display = "flex";
+        if (filtersVideogames) filtersVideogames.style.display = "none";
+        currentDataSource = products;
       } else {
-        locationBtn.href = 'https://www.google.com/maps/place/Ñuble+1034,+Santiago,+Región+Metropolitana,+Chile';
-        locationBtn.innerHTML = '📍 ¿Dónde nos ubicamos?';
+        const filtersProducts = document.getElementById("filtersProducts");
+        const filtersVideogames = document.getElementById("filtersVideogames");
+        if (filtersProducts) filtersProducts.style.display = "none";
+        if (filtersVideogames) filtersVideogames.style.display = "flex";
+        currentDataSource = videogames;
       }
-    }
 
-    // Mostrar/ocultar filtros según categoría
-    if (category === 'products') {
-      const filtersProducts = document.getElementById('filtersProducts');
-      const filtersVideogames = document.getElementById('filtersVideogames');
-      if (filtersProducts) filtersProducts.style.display = 'flex';
-      if (filtersVideogames) filtersVideogames.style.display = 'none';
-      currentDataSource = products;
-    } else {
-      const filtersProducts = document.getElementById('filtersProducts');
-      const filtersVideogames = document.getElementById('filtersVideogames');
-      if (filtersProducts) filtersProducts.style.display = 'none';
-      if (filtersVideogames) filtersVideogames.style.display = 'flex';
-      currentDataSource = videogames;
-    }
+      // Resetear filtros activos
+      const activeFilterContainer =
+        category === "products" ? "filtersProducts" : "filtersVideogames";
+      document
+        .querySelectorAll(`#${activeFilterContainer} .filter-btn`)
+        .forEach((btn) => {
+          btn.classList.remove("active");
+          if (btn.getAttribute("data-filter") === "all") {
+            btn.classList.add("active");
+          }
+        });
 
-    // Resetear filtros activos
-    const activeFilterContainer = category === 'products' ? 'filtersProducts' : 'filtersVideogames';
-    document.querySelectorAll(`#${activeFilterContainer} .filter-btn`).forEach(btn => {
-      btn.classList.remove('active');
-      if (btn.getAttribute('data-filter') === 'all') {
-        btn.classList.add('active');
-      }
-    });
+      // Renderizar productos
+      renderProducts();
 
-    renderProducts();
+      // Fade in suave después de renderizar
+      grid.classList.remove("fade-out");
+      grid.classList.add("fade-in");
+
+      // Limpiar clase fade-in después de la animación
+      setTimeout(() => {
+        grid.classList.remove("fade-in");
+      }, 600);
+    }, 400); // Duración del fade out
   }
 
   // ================== FILTROS PRODUCTOS ==================
   function filterProducts(filter) {
-    currentFilter = filter;
-    currentDataSource = products;
-    
-    document.querySelectorAll('#filtersProducts .filter-btn').forEach(btn => {
-      btn.classList.remove('active');
-      if (btn.getAttribute('data-filter') === filter) {
-        btn.classList.add('active');
-      }
-    });
-    
-    renderProducts();
+    const grid = document.getElementById("productsGrid");
+    if (!grid) return;
+
+    // Fade out suave
+    grid.classList.add("fade-out");
+
+    setTimeout(() => {
+      currentFilter = filter;
+      currentDataSource = products;
+
+      document
+        .querySelectorAll("#filtersProducts .filter-btn")
+        .forEach((btn) => {
+          btn.classList.remove("active");
+          if (btn.getAttribute("data-filter") === filter) {
+            btn.classList.add("active");
+          }
+        });
+
+      renderProducts();
+
+      // Fade in suave
+      grid.classList.remove("fade-out");
+      grid.classList.add("fade-in");
+      setTimeout(() => grid.classList.remove("fade-in"), 600);
+    }, 400);
   }
 
   // ================== FILTROS VIDEOJUEGOS ==================
   function filterVideogames(filter) {
-    currentFilter = filter;
-    currentDataSource = videogames;
-    
-    document.querySelectorAll('#filtersVideogames .filter-btn').forEach(btn => {
-      btn.classList.remove('active');
-      if (btn.getAttribute('data-filter') === filter) {
-        btn.classList.add('active');
-      }
-    });
-    
-    renderProducts();
+    const grid = document.getElementById("productsGrid");
+    if (!grid) return;
+
+    // Fade out suave
+    grid.classList.add("fade-out");
+
+    setTimeout(() => {
+      currentFilter = filter;
+      currentDataSource = videogames;
+
+      document
+        .querySelectorAll("#filtersVideogames .filter-btn")
+        .forEach((btn) => {
+          btn.classList.remove("active");
+          if (btn.getAttribute("data-filter") === filter) {
+            btn.classList.add("active");
+          }
+        });
+
+      renderProducts();
+
+      // Fade in suave
+      grid.classList.remove("fade-out");
+      grid.classList.add("fade-in");
+      setTimeout(() => grid.classList.remove("fade-in"), 600);
+    }, 400);
   }
 
   // ================== RENDERIZAR ==================
   function renderProducts() {
-    const grid = document.getElementById('productsGrid');
+    const grid = document.getElementById("productsGrid");
     if (!grid) return;
-    
-    grid.innerHTML = '';
-    
+
+    grid.innerHTML = "";
+
     let filteredData = currentDataSource;
-    
+
     // Aplicar filtros
-    if (currentCategory === 'videogames') {
-      if (currentFilter === 'ps3') {
-        filteredData = videogames.filter(game => game.console === 'ps3');
-      } else if (currentFilter === 'ps4') {
-        filteredData = videogames.filter(game => game.console === 'ps4');
-      } else if (currentFilter === 'available') {
-        filteredData = videogames.filter(game => !game.sold);
-      } else if (currentFilter === 'sold') {
-        filteredData = videogames.filter(game => game.sold);
+    if (currentCategory === "videogames") {
+      if (currentFilter === "ps3") {
+        filteredData = videogames.filter((game) => game.console === "ps3");
+      } else if (currentFilter === "ps4") {
+        filteredData = videogames.filter((game) => game.console === "ps4");
+      } else if (currentFilter === "available") {
+        filteredData = videogames.filter((game) => !game.sold);
+      } else if (currentFilter === "sold") {
+        filteredData = videogames.filter((game) => game.sold);
       }
     } else {
-      if (currentFilter === 'available') {
-        filteredData = products.filter(product => !product.sold);
-      } else if (currentFilter === 'sold') {
-        filteredData = products.filter(product => product.sold);
+      if (currentFilter === "available") {
+        filteredData = products.filter((product) => !product.sold);
+      } else if (currentFilter === "sold") {
+        filteredData = products.filter((product) => product.sold);
       }
     }
-    
+
     updateProductsCounter(filteredData.length);
-    
+
     filteredData.forEach((item, index) => {
-      const originalIndex = currentDataSource.findIndex(p => p.id === item.id);
-      
+      const originalIndex = currentDataSource.findIndex(
+        (p) => p.id === item.id,
+      );
+
       // Crear tarjeta nueva
-      const card = document.createElement('div');
-      card.className = `card ${item.sold ? 'sold' : ''}`;
+      const card = document.createElement("div");
+      card.className = `card ${item.sold ? "sold" : ""}`;
       card.onclick = () => openModal(originalIndex);
-      
+
       // Badge de estado
-      const estado = document.createElement('div');
-      estado.className = `estado ${item.sold ? 'vendido' : 'disponible'}`;
-      estado.textContent = item.sold ? 'VENDIDO' : 'DISPONIBLE';
-      
+      const estado = document.createElement("div");
+      estado.className = `estado ${item.sold ? "vendido" : "disponible"}`;
+      estado.textContent = item.sold ? "VENDIDO" : "DISPONIBLE";
+
       // Sección de imagen e info superior
-      const imge = document.createElement('div');
-      imge.className = 'imge';
-      
+      const imge = document.createElement("div");
+      imge.className = "imge";
+
       // Imagen del producto (thumbnail)
-      const img = document.createElement('img');
+      const img = document.createElement("img");
       img.src = item.images[0];
       img.alt = item.name;
-      img.className = 'product-image';
-      
+      img.className = "product-image";
+
+      // Optimizaciones de carga
+      img.loading = index < 6 ? "eager" : "lazy"; // Primeras 6 eager, resto lazy
+      img.decoding = "async"; // Decodificación asíncrona
+      img.width = 120;
+      img.height = 120;
+
+      // Fade-in suave al cargar
+      img.style.opacity = "0";
+      img.style.transition = "opacity 0.3s ease";
+      img.onload = () => {
+        img.style.opacity = "1";
+      };
+
       // Contenedor de info (nombre y precio)
-      const infoContainer = document.createElement('div');
-      infoContainer.className = 'info-container';
-      
+      const infoContainer = document.createElement("div");
+      infoContainer.className = "info-container";
+
       // Nombre del producto
-      const userName = document.createElement('div');
-      userName.className = 'UserName';
+      const userName = document.createElement("div");
+      userName.className = "UserName";
       userName.textContent = item.name;
       userName.title = item.name;
-      
+
       // Precio
-      const id = document.createElement('div');
-      id.className = 'Id';
+      const id = document.createElement("div");
+      id.className = "Id";
       id.textContent = item.price;
-      
+
       infoContainer.appendChild(userName);
       infoContainer.appendChild(id);
-      
+
       imge.appendChild(img);
       imge.appendChild(infoContainer);
-      
+
       // Social Media (botones de compartir)
-      const socialMedia = document.createElement('div');
-      socialMedia.className = 'social-media';
-      
-      const shareButtons = document.createElement('div');
-      shareButtons.className = 'share-buttons';
-      
+      const socialMedia = document.createElement("div");
+      socialMedia.className = "social-media";
+
+      const shareButtons = document.createElement("div");
+      shareButtons.className = "share-buttons";
+
       // Botón WhatsApp
-      const whatsappShare = document.createElement('button');
-      whatsappShare.className = 'share-btn whatsapp';
-      whatsappShare.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" fill="#25D366"/></svg>';
-      whatsappShare.title = 'Compartir en WhatsApp';
+      const whatsappShare = document.createElement("button");
+      whatsappShare.className = "share-btn whatsapp";
+      whatsappShare.innerHTML =
+        '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" fill="#25D366"/></svg>';
+      whatsappShare.title = "Compartir en WhatsApp";
       whatsappShare.onclick = (e) => {
         e.stopPropagation();
         const url = encodeURIComponent(window.location.href);
-        const text = encodeURIComponent(`Mira este producto: ${item.name} - ${item.price}`);
-        window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+        const text = encodeURIComponent(
+          `Mira este producto: ${item.name} - ${item.price}`,
+        );
+        window.open(`https://wa.me/?text=${text}%20${url}`, "_blank");
       };
 
       // Botón Facebook
-      const facebookShare = document.createElement('button');
-      facebookShare.className = 'share-btn facebook';
-      facebookShare.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/></svg>';
-      facebookShare.title = 'Compartir en Facebook';
+      const facebookShare = document.createElement("button");
+      facebookShare.className = "share-btn facebook";
+      facebookShare.innerHTML =
+        '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/></svg>';
+      facebookShare.title = "Compartir en Facebook";
       facebookShare.onclick = (e) => {
         e.stopPropagation();
         const url = encodeURIComponent(window.location.href);
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+        window.open(
+          `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+          "_blank",
+        );
       };
 
       // Botón Instagram - CORREGIDO
-      const instagramShare = document.createElement('button');
-      instagramShare.className = 'share-btn instagram';
-      instagramShare.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" fill="#E1306C"/></svg>';
-      instagramShare.title = 'Compartir en Instagram';
+      const instagramShare = document.createElement("button");
+      instagramShare.className = "share-btn instagram";
+      instagramShare.innerHTML =
+        '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" fill="#E1306C"/></svg>';
+      instagramShare.title = "Compartir en Instagram";
       instagramShare.onclick = (e) => {
         e.stopPropagation();
         const url = window.location.href;
         const shareText = `Mira este producto: ${item.name} - ${item.price} ${url}`;
-        
+
         // Copiar al portapapeles y abrir Instagram
         if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(shareText).then(() => {
-            // Feedback visual de copiado
-            const originalHTML = instagramShare.innerHTML;
-            const originalBg = instagramShare.style.background;
-            
-            instagramShare.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17L4 12" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-            instagramShare.title = '¡Copiado! Abriendo Instagram...';
-            instagramShare.style.background = 'rgba(74, 222, 128, 0.2)';
-            instagramShare.style.borderColor = '#4ade80';
-            
-            // Abrir Instagram después de un momento para que vea el feedback
-            setTimeout(() => {
-              // Intentar abrir la app de Instagram (móvil) o el sitio web
-              const instagramUrl = 'instagram://';
-              const instagramWeb = 'https://www.instagram.com/';
-              
-              // Intentar abrir la app primero
-              window.location.href = instagramUrl;
-              
-              // Si no se abre la app en 1 segundo, abrir el sitio web
+          navigator.clipboard
+            .writeText(shareText)
+            .then(() => {
+              // Feedback visual de copiado
+              const originalHTML = instagramShare.innerHTML;
+              const originalBg = instagramShare.style.background;
+
+              instagramShare.innerHTML =
+                '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17L4 12" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+              instagramShare.title = "¡Copiado! Abriendo Instagram...";
+              instagramShare.style.background = "rgba(74, 222, 128, 0.2)";
+              instagramShare.style.borderColor = "#4ade80";
+
+              // Abrir Instagram después de un momento para que vea el feedback
               setTimeout(() => {
-                window.open(instagramWeb, '_blank');
-              }, 1000);
-              
-              // Restaurar el botón
-              instagramShare.innerHTML = originalHTML;
-              instagramShare.title = 'Compartir en Instagram';
-              instagramShare.style.background = originalBg;
-              instagramShare.style.borderColor = '';
-            }, 800);
-          }).catch(err => {
-            console.error('Error al copiar:', err);
-            // Si falla, mostrar el texto y abrir Instagram de todas formas
-            alert('Copia este texto:\n\n' + shareText);
-            window.open('https://www.instagram.com/', '_blank');
-          });
+                // Intentar abrir la app de Instagram (móvil) o el sitio web
+                const instagramUrl = "instagram://";
+                const instagramWeb = "https://www.instagram.com/";
+
+                // Intentar abrir la app primero
+                window.location.href = instagramUrl;
+
+                // Si no se abre la app en 1 segundo, abrir el sitio web
+                setTimeout(() => {
+                  window.open(instagramWeb, "_blank");
+                }, 1000);
+
+                // Restaurar el botón
+                instagramShare.innerHTML = originalHTML;
+                instagramShare.title = "Compartir en Instagram";
+                instagramShare.style.background = originalBg;
+                instagramShare.style.borderColor = "";
+              }, 800);
+            })
+            .catch((err) => {
+              console.error("Error al copiar:", err);
+              // Si falla, mostrar el texto y abrir Instagram de todas formas
+              alert("Copia este texto:\n\n" + shareText);
+              window.open("https://www.instagram.com/", "_blank");
+            });
         } else {
           // Fallback para navegadores antiguos
-          alert('Copia este texto y luego pégalo en Instagram:\n\n' + shareText);
-          window.open('https://www.instagram.com/', '_blank');
+          alert(
+            "Copia este texto y luego pégalo en Instagram:\n\n" + shareText,
+          );
+          window.open("https://www.instagram.com/", "_blank");
         }
       };
 
       shareButtons.appendChild(whatsappShare);
       shareButtons.appendChild(facebookShare);
       shareButtons.appendChild(instagramShare);
-      
+
       socialMedia.appendChild(shareButtons);
-      
+
       // Ensamblar tarjeta
       card.appendChild(estado);
       card.appendChild(imge);
       card.appendChild(socialMedia);
-      
+
       grid.appendChild(card);
     });
-    
+
+    // Precargar las primeras 6 imágenes para carga más rápida
+    if (filteredData.length > 0) {
+      const preloadCount = Math.min(6, filteredData.length);
+      filteredData.slice(0, preloadCount).forEach((item) => {
+        const link = document.createElement("link");
+        link.rel = "preload";
+        link.as = "image";
+        link.href = item.images[0];
+        document.head.appendChild(link);
+      });
+    }
+
     if (filteredData.length === 0) {
-      const noProducts = document.createElement('div');
-      noProducts.className = 'no-products';
+      const noProducts = document.createElement("div");
+      noProducts.className = "no-products";
       noProducts.innerHTML = `
         <div class="no-products-message">
-          <h3>😕 No hay ${currentCategory === 'videogames' ? 'videojuegos' : 'productos'} en esta categoría</h3>
+          <h3>😕 No hay ${currentCategory === "videogames" ? "videojuegos" : "productos"} en esta categoría</h3>
           <p>Prueba con otro filtro</p>
         </div>
       `;
@@ -307,10 +406,11 @@ const initialCount = products.length;
   }
 
   function updateProductsCounter(count) {
-    const counterId = currentCategory === 'products' ? 'productsCounter' : 'videogamesCounter';
+    const counterId =
+      currentCategory === "products" ? "productsCounter" : "videogamesCounter";
     const counter = document.getElementById(counterId);
     if (counter) {
-      let message = `Mostrando ${count} ${currentCategory === 'videogames' ? 'juego' : 'producto'}${count !== 1 ? 's' : ''}`;
+      let message = `Mostrando ${count} ${currentCategory === "videogames" ? "juego" : "producto"}${count !== 1 ? "s" : ""}`;
       counter.textContent = message;
     }
   }
@@ -320,29 +420,30 @@ const initialCount = products.length;
     currentProductIndex = index;
     currentImageIndex = 0;
     const item = currentDataSource[index];
-    
-    const modal = document.getElementById('productModal');
+
+    const modal = document.getElementById("productModal");
     if (!modal) return;
-    
+
     showImage(item.images[currentImageIndex]);
-    
-    const modalName = document.getElementById('modalName');
-    const modalPrice = document.getElementById('modalPrice');
-    const modalDescription = document.getElementById('modalDescription');
-    const thumbnails = document.getElementById('modalThumbnails');
-    const actions = document.getElementById('modalActions');
-    const modalContent = document.querySelector('.modal-content');
-    
+
+    const modalName = document.getElementById("modalName");
+    const modalPrice = document.getElementById("modalPrice");
+    const modalDescription = document.getElementById("modalDescription");
+    const thumbnails = document.getElementById("modalThumbnails");
+    const actions = document.getElementById("modalActions");
+    const modalContent = document.querySelector(".modal-content");
+
     if (modalName) modalName.textContent = item.name;
     if (modalPrice) modalPrice.textContent = item.price;
-    if (modalDescription) modalDescription.innerHTML = formatDescription(item.description);
+    if (modalDescription)
+      modalDescription.innerHTML = formatDescription(item.description);
 
     if (thumbnails) {
-      thumbnails.innerHTML = '';
+      thumbnails.innerHTML = "";
       item.images.forEach((img, i) => {
-        const thumb = document.createElement('img');
+        const thumb = document.createElement("img");
         thumb.src = img;
-        thumb.classList.toggle('active', i === 0);
+        thumb.classList.toggle("active", i === 0);
         thumb.onclick = () => {
           currentImageIndex = i;
           showImage(item.images[currentImageIndex]);
@@ -350,7 +451,7 @@ const initialCount = products.length;
         thumbnails.appendChild(thumb);
       });
     }
-    
+
     if (actions) {
       if (item.sold) {
         actions.innerHTML = `
@@ -360,73 +461,74 @@ const initialCount = products.length;
         `;
       } else {
         actions.innerHTML = `
-          <a href="https://wa.me/${item.whatsapp.replace('+', '')}?text=Hola! Me interesa el producto: ${encodeURIComponent(item.name)} - ${encodeURIComponent(item.price)}" 
+          <a href="https://wa.me/${item.whatsapp.replace("+", "")}?text=Hola! Me interesa el producto: ${encodeURIComponent(item.name)} - ${encodeURIComponent(item.price)}" 
              class="btn btn-whatsapp" target="_blank">
             💬 Comprar por WhatsApp
           </a>
         `;
       }
     }
-    
+
     if (modalContent) {
       if (item.sold) {
-        modalContent.classList.add('sold');
+        modalContent.classList.add("sold");
       } else {
-        modalContent.classList.remove('sold');
+        modalContent.classList.remove("sold");
       }
     }
-    
-    modal.style.display = 'block';
+
+    modal.style.display = "block";
   }
 
   function formatDescription(text) {
-    if (!text) return '<p>Sin descripción disponible.</p>';
-    
+    if (!text) return "<p>Sin descripción disponible.</p>";
+
     text = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    
-    const lines = text.split('\n');
-    let html = '';
+
+    const lines = text.split("\n");
+    let html = "";
     let inList = false;
-    
-    lines.forEach(line => {
+
+    lines.forEach((line) => {
       line = line.trim();
-      if (line.startsWith('-')) {
+      if (line.startsWith("-")) {
         if (!inList) {
-          html += '<ul>';
+          html += "<ul>";
           inList = true;
         }
         html += `<li>${line.substring(1).trim()}</li>`;
       } else {
         if (inList) {
-          html += '</ul>';
+          html += "</ul>";
           inList = false;
         }
         if (line) html += `<p>${line}</p>`;
       }
     });
-    
-    if (inList) html += '</ul>';
+
+    if (inList) html += "</ul>";
     return html;
   }
 
   function showImage(src) {
-    const modalImg = document.getElementById('modalImage');
+    const modalImg = document.getElementById("modalImage");
     if (!modalImg) return;
-    
+
     modalImg.src = src;
-    
+
     const item = currentDataSource[currentProductIndex];
-    modalImg.classList.toggle('sold', item.sold);
-    
-    const thumbs = document.querySelectorAll('#modalThumbnails img');
+    modalImg.classList.toggle("sold", item.sold);
+
+    const thumbs = document.querySelectorAll("#modalThumbnails img");
     thumbs.forEach((t, i) => {
-      t.classList.toggle('active', i === currentImageIndex);
+      t.classList.toggle("active", i === currentImageIndex);
     });
   }
 
   function prevImage() {
     const item = currentDataSource[currentProductIndex];
-    currentImageIndex = (currentImageIndex - 1 + item.images.length) % item.images.length;
+    currentImageIndex =
+      (currentImageIndex - 1 + item.images.length) % item.images.length;
     showImage(item.images[currentImageIndex]);
   }
 
@@ -437,51 +539,53 @@ const initialCount = products.length;
   }
 
   function closeModal() {
-    const modal = document.getElementById('productModal');
-    if (modal) modal.style.display = 'none';
+    const modal = document.getElementById("productModal");
+    if (modal) modal.style.display = "none";
   }
 
   // Inicializar eventos
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener("DOMContentLoaded", function () {
     renderProducts();
-    
+
     // Event listeners para botones de categoría
-    document.querySelectorAll('.btn-category').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const category = btn.getAttribute('data-category');
+    document.querySelectorAll(".btn-category").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const category = btn.getAttribute("data-category");
         if (category) changeCategory(category);
       });
     });
-    
+
     // Event listeners para filtros de productos
-    document.querySelectorAll('#filtersProducts .filter-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const filter = btn.getAttribute('data-filter');
+    document.querySelectorAll("#filtersProducts .filter-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const filter = btn.getAttribute("data-filter");
         if (filter) filterProducts(filter);
       });
     });
-    
+
     // Event listeners para filtros de videojuegos
-    document.querySelectorAll('#filtersVideogames .filter-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const filter = btn.getAttribute('data-filter');
-        if (filter) filterVideogames(filter);
+    document
+      .querySelectorAll("#filtersVideogames .filter-btn")
+      .forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          const filter = btn.getAttribute("data-filter");
+          if (filter) filterVideogames(filter);
+        });
       });
-    });
-    
+
     // Cerrar modal al hacer click fuera
-    const modal = document.getElementById('productModal');
+    const modal = document.getElementById("productModal");
     if (modal) {
-      modal.addEventListener('click', (e) => {
+      modal.addEventListener("click", (e) => {
         if (e.target === modal) {
           closeModal();
         }
       });
     }
-    
+
     // Cerrar modal con ESC
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
         closeModal();
       }
     });

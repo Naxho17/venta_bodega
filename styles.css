@@ -247,23 +247,6 @@ body {
   font-size: 1.5rem;
 }
 
-.no-products-message p {
-  color: #888;
-  font-size: 1rem;
-}
-
-/* Products Grid */
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 2.5rem;
-  margin-top: 2rem;
-  padding: 1rem 0;
-}
-
-/* CARDS CON FONDO NEGRO */
-.product-card {
-  background: #1a1a1a;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
