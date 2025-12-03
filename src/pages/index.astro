@@ -50,7 +50,7 @@ const initialCount = products.length;
     // Fade out suave
     grid.classList.add("fade-out");
 
-    // Esperar a que termine la animación de fade out
+    // Esperar a que termine la animación de fade out (500ms para suavidad)
     setTimeout(() => {
       currentCategory = category;
       currentFilter = "all";
@@ -114,8 +114,8 @@ const initialCount = products.length;
       // Limpiar clase fade-in después de la animación
       setTimeout(() => {
         grid.classList.remove("fade-in");
-      }, 600);
-    }, 400); // Duración del fade out
+      }, 800);
+    }, 500); // Duración del fade out
   }
 
   // ================== FILTROS PRODUCTOS ==================
@@ -144,8 +144,8 @@ const initialCount = products.length;
       // Fade in suave
       grid.classList.remove("fade-out");
       grid.classList.add("fade-in");
-      setTimeout(() => grid.classList.remove("fade-in"), 600);
-    }, 400);
+      setTimeout(() => grid.classList.remove("fade-in"), 800);
+    }, 500);
   }
 
   // ================== FILTROS VIDEOJUEGOS ==================
@@ -174,8 +174,8 @@ const initialCount = products.length;
       // Fade in suave
       grid.classList.remove("fade-out");
       grid.classList.add("fade-in");
-      setTimeout(() => grid.classList.remove("fade-in"), 600);
-    }, 400);
+      setTimeout(() => grid.classList.remove("fade-in"), 800);
+    }, 500);
   }
 
   // ================== RENDERIZAR ==================
@@ -234,17 +234,10 @@ const initialCount = products.length;
       img.className = "product-image";
 
       // Optimizaciones de carga
-      img.loading = index < 6 ? "eager" : "lazy"; // Primeras 6 eager, resto lazy
+      img.loading = "eager"; // TODAS las imágenes se cargan inmediatamente
       img.decoding = "async"; // Decodificación asíncrona
       img.width = 120;
       img.height = 120;
-
-      // Fade-in suave al cargar
-      img.style.opacity = "0";
-      img.style.transition = "opacity 0.3s ease";
-      img.onload = () => {
-        img.style.opacity = "1";
-      };
 
       // Contenedor de info (nombre y precio)
       const infoContainer = document.createElement("div");
@@ -379,18 +372,6 @@ const initialCount = products.length;
 
       grid.appendChild(card);
     });
-
-    // Precargar las primeras 6 imágenes para carga más rápida
-    if (filteredData.length > 0) {
-      const preloadCount = Math.min(6, filteredData.length);
-      filteredData.slice(0, preloadCount).forEach((item) => {
-        const link = document.createElement("link");
-        link.rel = "preload";
-        link.as = "image";
-        link.href = item.images[0];
-        document.head.appendChild(link);
-      });
-    }
 
     if (filteredData.length === 0) {
       const noProducts = document.createElement("div");
@@ -545,7 +526,23 @@ const initialCount = products.length;
 
   // Inicializar eventos
   document.addEventListener("DOMContentLoaded", function () {
-    renderProducts();
+    // PRECARGA AGRESIVA - Forzar descarga completa de TODAS las imágenes
+    // Usando objetos Image para garantizar que se descarguen completamente
+    const allImages = [...products, ...videogames];
+    const imagePromises = allImages.map((item) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = resolve;
+        img.onerror = resolve; // Resolver incluso si falla
+        img.src = item.images[0];
+      });
+    });
+
+    // Esperar a que TODAS las imágenes estén completamente descargadas
+    Promise.all(imagePromises).then(() => {
+      console.log("✅ Todas las imágenes precargadas");
+      renderProducts();
+    });
 
     // Event listeners para botones de categoría
     document.querySelectorAll(".btn-category").forEach((btn) => {
